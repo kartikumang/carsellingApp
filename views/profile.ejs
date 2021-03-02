@@ -1,0 +1,54 @@
+<% include ./partials/header.ejs %>
+    <link rel="stylesheet" href="../stylesheets/profile.css">
+
+    <form style="display: none;" id="frm" action="/uploadit" method="POST" enctype="multipart/form-data">
+        <input id="inptfl" type="file" name="image" >
+    </form>
+
+    <div id="container">
+        <div id="dets">
+            <div id="image">
+                <img src=<%= prflimg %> alt="">
+            </div>
+            <div id="txt">
+                <h2><%= username %></h2>
+                <button >Change Img</button>
+            </div>
+        </div>
+        <div id="form">
+            <h2>Make new car selling listing !</h2>
+            <form action="/addcar" method="POST" enctype="multipart/form-data">
+                <input type="text" placeholder="car price" name="carprice">
+                <input type="text" placeholder="car name" name="carname">
+                <input type="text" placeholder="contact" name="contact">
+                <input type="file" name="carimg">
+                <input type="submit">
+            </form>
+        </div>
+        <div id="posts">
+           <h3>Your Previous Entries</h3>
+        <% cars.reverse().forEach(function(car){   %>
+            <div class="post">
+                <img src=<%= car.carimg %>>
+                  <h3><%=car.carprice%> </h3>
+                  <h3><%= car.carname %> </h3>
+                  <a href=<%= 'tel:'+ car.contact %>>Call Me </a>
+              </div>
+       <%  })  %>
+           
+        
+                 
+        </div>
+    </div>
+
+   <script>
+       document.querySelector('button').addEventListener('click',function(){
+           document.querySelector('#inptfl').click()
+       });
+
+       document.querySelector('#inptfl').addEventListener('change',function(){
+            document.querySelector('#frm').submit();
+       });
+   </script>
+
+<% include ./partials/footer.ejs %>
